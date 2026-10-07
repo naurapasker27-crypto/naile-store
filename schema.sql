@@ -55,7 +55,7 @@ CREATE TABLE IF NOT EXISTS custom_requests (
   shape TEXT NOT NULL DEFAULT 'Almond',
   notes TEXT NOT NULL DEFAULT '',
   sizes JSONB NOT NULL DEFAULT '{}'::jsonb,
-  references JSONB NOT NULL DEFAULT '[]'::jsonb,
+  "references" JSONB NOT NULL DEFAULT '[]'::jsonb,
   quoted_price NUMERIC(14,2),
   created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
   updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
