@@ -1,0 +1,14 @@
+{
+  "name": "NAILÉ — Premium Nail Art",
+  "short_name": "NAILÉ",
+  "description": "Premium ready-made and custom nail art store.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#2E323C",
+  "theme_color": "#2B4251",
+  "orientation": "portrait-primary",
+  "icons": [
+    {"src":"/icons/icon-192.png","sizes":"192x192","type":"image/png","purpose":"any maskable"},
+    {"src":"/icons/icon-512.png","sizes":"512x512","type":"image/png","purpose":"any maskable"}
+  ]
+}

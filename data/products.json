@@ -1,0 +1,56 @@
+[
+  {
+    "id": "n001",
+    "name": "Pearl Muse",
+    "price": 129000,
+    "category": "Soft",
+    "emoji": "\ud83e\udd0d",
+    "stock": 12,
+    "description": "Milky pearl press-on nails dengan finishing glossy."
+  },
+  {
+    "id": "n002",
+    "name": "Cherry Noir",
+    "price": 149000,
+    "category": "Bold",
+    "emoji": "\ud83c\udf52",
+    "stock": 8,
+    "description": "Deep cherry statement set dengan karakter elegan."
+  },
+  {
+    "id": "n003",
+    "name": "Soft Blush",
+    "price": 119000,
+    "category": "Soft",
+    "emoji": "\ud83c\udf38",
+    "stock": 15,
+    "description": "Blush pink minimal untuk tampilan clean."
+  },
+  {
+    "id": "n004",
+    "name": "French Aura",
+    "price": 139000,
+    "category": "Luxe",
+    "emoji": "\u2728",
+    "stock": 10,
+    "description": "French tips dengan aura finish yang modern."
+  },
+  {
+    "id": "n005",
+    "name": "Burgundy Rose",
+    "price": 159000,
+    "category": "Bold",
+    "emoji": "\ud83c\udf39",
+    "stock": 7,
+    "description": "Burgundy floral set untuk statement look."
+  },
+  {
+    "id": "n006",
+    "name": "Milky Chrome",
+    "price": 149000,
+    "category": "Luxe",
+    "emoji": "\ud83e\ude9e",
+    "stock": 9,
+    "description": "Milky chrome reflective finish."
+  }
+]

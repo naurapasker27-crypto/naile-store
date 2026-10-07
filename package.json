@@ -1,0 +1,21 @@
+{
+  "name": "naile-store-mvp",
+  "version": "2.2.0",
+  "private": true,
+  "description": "NAILÉ premium nail art ecommerce — admin studio with product photo uploads",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "db:check": "node scripts/db-check.js",
+    "db:migrate": "node scripts/migrate-seed.js"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.57.4",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "multer": "^2.0.2",
+    "pg": "^8.16.3"
+  }
+}
