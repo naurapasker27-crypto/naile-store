@@ -25,7 +25,7 @@ const hashPassword=(password,salt=crypto.randomBytes(16).toString('hex'))=>salt+
 function verifyPassword(password,stored){try{const [salt,hash]=stored.split(':');const a=crypto.scryptSync(password,salt,64);const b=Buffer.from(hash,'hex');return a.length===b.length&&crypto.timingSafeEqual(a,b)}catch{return false}}
 async function q(text,params=[]){if(!pool)throw new Error('DATABASE_URL is not configured');return pool.query(text,params)}
 const isDb=()=>!!pool;
-asasync function uploadMediaToSupabase(localPath,bucket,folder,mimeType,makePublic=false){
+async function uploadMediaToSupabase(localPath,bucket,folder,mimeType,makePublic=false){
   if(!supabase)return null;
 
   const name=path.basename(localPath);
@@ -49,11 +49,7 @@ asasync function uploadMediaToSupabase(localPath,bucket,folder,mimeType,makePubl
 
   return objectPath;
 }
-async function ensureSupabaseBucket(){
-  if(!supabase)return;
-  try{const r=await supabase.storage.getBucket(MEDIA_BUCKET);if(!r.data){await supabase.storage.createBucket(MEDIA_BUCKET,{public:true,fileSizeLimit:8388608});}}catch(e){console.warn('Supabase bucket check:',e.message)}
-}
-ensureSupabaseBucket();
+
 
 app.use(cors());
 app.use(express.json({limit:'2mb'}));
