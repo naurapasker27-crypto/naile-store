@@ -16,7 +16,8 @@ for(const d of [DATA,UPLOADS,path.join(PUBLIC,'images','products')])if(!fs.exist
 const pool=process.env.DATABASE_URL?new Pool({connectionString:process.env.DATABASE_URL,ssl:process.env.NODE_ENV==='production'?{rejectUnauthorized:false}:false}):null;
 const db=!!pool;
 const supabase=process.env.SUPABASE_URL&&process.env.SUPABASE_SERVICE_ROLE_KEY?createClient(process.env.SUPABASE_URL,process.env.SUPABASE_SERVICE_ROLE_KEY,{auth:{persistSession:false}}):null;
-const MEDIA_BUCKET=process.env.SUPABASE_STORAGE_BUCKET||'naile-media';
+const PRODUCT_BUCKET=process.env.SUPABASE_PRODUCTS_BUCKET||'products';
+const CUSTOM_BUCKET=process.env.SUPABASE_CUSTOM_BUCKET||'custom-references';
 const file=n=>path.join(DATA,n), read=n=>JSON.parse(fs.readFileSync(file(n),'utf8')), write=(n,v)=>fs.writeFileSync(file(n),JSON.stringify(v,null,2));
 for(const n of ['users.json','sessions.json','orders.json','products.json','custom_requests.json'])if(!fs.existsSync(file(n)))write(n,[]);
 const id=p=>p+'_'+crypto.randomBytes(5).toString('hex');
@@ -24,15 +25,29 @@ const hashPassword=(password,salt=crypto.randomBytes(16).toString('hex'))=>salt+
 function verifyPassword(password,stored){try{const [salt,hash]=stored.split(':');const a=crypto.scryptSync(password,salt,64);const b=Buffer.from(hash,'hex');return a.length===b.length&&crypto.timingSafeEqual(a,b)}catch{return false}}
 async function q(text,params=[]){if(!pool)throw new Error('DATABASE_URL is not configured');return pool.query(text,params)}
 const isDb=()=>!!pool;
-async function uploadMediaToSupabase(localPath,folder,mimeType){
+asasync function uploadMediaToSupabase(localPath,bucket,folder,mimeType,makePublic=false){
   if(!supabase)return null;
+
   const name=path.basename(localPath);
   const objectPath=folder+'/'+name;
   const data=fs.readFileSync(localPath);
-  const up=await supabase.storage.from(MEDIA_BUCKET).upload(objectPath,data,{contentType:mimeType||'application/octet-stream',upsert:true});
+
+  const up=await supabase.storage
+    .from(bucket)
+    .upload(objectPath,data,{
+      contentType:mimeType||'application/octet-stream',
+      upsert:true
+    });
+
   if(up.error)throw up.error;
-  const pub=supabase.storage.from(MEDIA_BUCKET).getPublicUrl(objectPath);
-  return pub.data.publicUrl;
+
+  if(makePublic){
+    return supabase.storage
+      .from(bucket)
+      .getPublicUrl(objectPath).data.publicUrl;
+  }
+
+  return objectPath;
 }
 async function ensureSupabaseBucket(){
   if(!supabase)return;
